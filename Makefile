@@ -18,7 +18,7 @@ submodule:
 	git submodule update --init
 
 build_container:
-	docker build -t tenyks-pkg meta
+	docker build -t anopa-pkg meta
 
 manual: submodule build_container
 	./meta/launch /bin/bash || true
