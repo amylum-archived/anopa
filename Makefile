@@ -16,6 +16,12 @@ SKALIBS_TAR = skalibs.tar.gz
 SKALIBS_DIR = /tmp/skalibs
 SKALIBS_PATH = --with-sysdeps=$(SKALIBS_DIR)/usr/lib/skalibs/sysdeps --with-lib=$(SKALIBS_DIR)/usr/lib/skalibs --with-include=$(SKALIBS_DIR)/usr/include --with-dynlib=$(SKALIBS_DIR)/usr/lib
 
+S6_VERSION = 2.1.3.0-24
+S6_URL = https://github.com/amylum/s6/releases/download/$(S6_VERSION)/s6.tar.gz
+S6_TAR = s6.tar.gz
+S6_DIR = /tmp/s6
+S6_PATH = --with-lib=$(S6_DIR)/usr/lib/s6 --with-include=$(S6_DIR)/usr/include --with-lib=$(S6_DIR)/usr/lib
+
 .PHONY : default submodule manual container deps version build push local
 
 default: submodule container
@@ -30,15 +36,17 @@ container:
 	./meta/launch
 
 deps:
-	rm -rf $(SKALIBS_DIR) $(SKALIBS_TAR)
-	mkdir $(SKALIBS_DIR)
+	rm -rf $(SKALIBS_DIR) $(SKALIBS_TAR) $(S6_DIR) $(S6_TAR)
+	mkdir $(SKALIBS_DIR) $(S6_DIR)
 	curl -sLo $(SKALIBS_TAR) $(SKALIBS_URL)
 	tar -x -C $(SKALIBS_DIR) -f $(SKALIBS_TAR)
+	curl -sLo $(S6_TAR) $(S6_URL)
+	tar -x -C $(S6_DIR) -f $(S6_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
-	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH)
+	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH) $(S6_PATH)
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
 	make -C $(BUILD_DIR)
 	make -C $(BUILD_DIR) install
