@@ -8,28 +8,37 @@ PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 CONF_FLAGS = --enable-static --disable-slashpackage
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --with-sysdeps=/usr/lib/skalibs/sysdeps --with-include=/usr/include
+PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include
 
-.PHONY : default submodule build_container manual container version build push local
+SKALIBS_VERSION = 2.3.3.0-24
+SKALIBS_URL = https://github.com/amylum/skalibs/releases/download/$(SKALIBS_VERSION)/skalibs.tar.gz
+SKALIBS_TAR = skalibs.tar.gz
+SKALIBS_DIR = /tmp/skalibs
+SKALIBS_PATH = --with-sysdeps=$(SKALIBS_DIR)/usr/lib/skalibs/sysdeps --with-lib=$(SKALIBS_DIR)/usr/lib/skalibs --with-include=$(SKALIBS_DIR)/usr/include --with-dynlib=$(SKALIBS_DIR)/usr/lib
+
+.PHONY : default submodule manual container deps version build push local
 
 default: submodule container
 
 submodule:
 	git submodule update --init
 
-build_container:
-	docker build -t anopa-pkg meta
-
-manual: submodule build_container
+manual: submodule
 	./meta/launch /bin/bash || true
 
-container: build_container
+container:
 	./meta/launch
+
+deps:
+	rm -rf $(SKALIBS_DIR) $(SKALIBS_TAR)
+	mkdir $(SKALIBS_DIR)
+	curl -sLo $(SKALIBS_TAR) $(SKALIBS_URL)
+	tar -x -C $(SKALIBS_DIR) -f $(SKALIBS_TAR)
 
 build: submodule
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
-	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS)
+	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH)
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
 	make -C $(BUILD_DIR)
 	make -C $(BUILD_DIR) install
