@@ -8,7 +8,7 @@ PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 CONF_FLAGS = --enable-static --disable-slashpackage
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --libdir=$(RELEASE_DIR)/usr/lib/skalibs --sysdepdir=$(RELEASE_DIR)/usr/lib/skalibs/sysdeps --includedir=$(RELEASE_DIR)/usr/include
+PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include
 
 .PHONY : default submodule manual container version build push local
 
