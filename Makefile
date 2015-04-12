@@ -8,7 +8,7 @@ PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 CONF_FLAGS = --enable-static --disable-slashpackage
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include
+PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --with-include=/tmp/includes
 
 SKALIBS_VERSION = 2.3.3.0-24
 SKALIBS_URL = https://github.com/amylum/skalibs/releases/download/$(SKALIBS_VERSION)/skalibs.tar.gz
@@ -50,13 +50,16 @@ deps:
 	tar -x -C $(S6_DIR) -f $(S6_TAR)
 	curl -sLo $(EXECLINE_TAR) $(EXECLINE_URL)
 	tar -x -C $(EXECLINE_DIR) -f $(EXECLINE_TAR)
+	rm -rf /tmp/includes
+	mkdir /tmp/includes
+	cp -R /usr/includes/{linux,asm,asm-generic} /tmp/includes
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH) $(S6_PATH) $(EXECLINE_PATH)
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
-	make -C $(BUILD_DIR)
+	source /etc/profile.d/perlbin.sh && make -C $(BUILD_DIR)
 	make -C $(BUILD_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp upstream/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
