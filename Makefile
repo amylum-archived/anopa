@@ -8,7 +8,7 @@ PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 CONF_FLAGS = --enable-static --disable-slashpackage
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --with-include=/tmp/includes
+PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --with-include=/tmp/include
 
 SKALIBS_VERSION = 2.3.3.0-24
 SKALIBS_URL = https://github.com/amylum/skalibs/releases/download/$(SKALIBS_VERSION)/skalibs.tar.gz
@@ -50,9 +50,9 @@ deps:
 	tar -x -C $(S6_DIR) -f $(S6_TAR)
 	curl -sLo $(EXECLINE_TAR) $(EXECLINE_URL)
 	tar -x -C $(EXECLINE_DIR) -f $(EXECLINE_TAR)
-	rm -rf /tmp/includes
-	mkdir /tmp/includes
-	cp -R /usr/includes/{linux,asm,asm-generic} /tmp/includes
+	rm -rf /tmp/include
+	mkdir /tmp/include
+	cp -R /usr/include/{linux,asm,asm-generic} /tmp/include
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
