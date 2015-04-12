@@ -35,7 +35,7 @@ deps:
 	curl -sLo $(SKALIBS_TAR) $(SKALIBS_URL)
 	tar -x -C $(SKALIBS_DIR) -f $(SKALIBS_TAR)
 
-build: submodule
+build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH)
