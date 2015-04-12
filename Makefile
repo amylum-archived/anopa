@@ -59,7 +59,7 @@ build: submodule deps
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH) $(S6_PATH) $(EXECLINE_PATH)
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
-	source /etc/profile.d/perlbin.sh && make -C $(BUILD_DIR)
+	DESTDIR=$(RELEASE_DIR) POD2MAN=/usr/bin/core_perl/pod2man make -C $(BUILD_DIR)
 	make -C $(BUILD_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp upstream/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
