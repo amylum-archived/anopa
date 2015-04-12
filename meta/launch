@@ -6,4 +6,4 @@ docker run \
     -e SSH_AUTH_SOCK=/auth.sock \
     -v $(pwd):/opt/build \
     -v ~/.gitconfig:/etc/gitconfig \
-    dock0/build $1
+    anopa-pkg $1

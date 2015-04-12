@@ -10,17 +10,20 @@ VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 CONF_FLAGS = --enable-static --disable-slashpackage
 PATH_FLAGS = --prefix=$(RELEASE_DIR) --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include
 
-.PHONY : default submodule manual container version build push local
+.PHONY : default submodule build_container manual container version build push local
 
 default: submodule container
 
 submodule:
 	git submodule update --init
 
-manual: submodule
+build_container:
+	docker build -t tenyks-pkg meta
+
+manual: submodule build_container
 	./meta/launch /bin/bash || true
 
-container:
+container: build_container
 	./meta/launch
 
 build: submodule
