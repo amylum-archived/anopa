@@ -22,6 +22,12 @@ S6_TAR = s6.tar.gz
 S6_DIR = /tmp/s6
 S6_PATH = --with-lib=$(S6_DIR)/usr/lib/s6 --with-include=$(S6_DIR)/usr/include --with-lib=$(S6_DIR)/usr/lib
 
+EXECLINE_VERSION = 2.1.1.1-16
+EXECLINE_URL = https://github.com/amylum/execline/releases/download/$(EXECLINE_VERSION)/execline.tar.gz
+EXECLINE_TAR = execline.tar.gz
+EXECLINE_DIR = /tmp/execline
+EXECLINE_PATH = --with-lib=$(EXECLINE_DIR)/usr/lib/execline --with-include=$(EXECLINE_DIR)/usr/include --with-lib=$(EXECLINE_DIR)/usr/lib
+
 .PHONY : default submodule manual container deps version build push local
 
 default: submodule container
@@ -36,12 +42,14 @@ container:
 	./meta/launch
 
 deps:
-	rm -rf $(SKALIBS_DIR) $(SKALIBS_TAR) $(S6_DIR) $(S6_TAR)
-	mkdir $(SKALIBS_DIR) $(S6_DIR)
+	rm -rf $(SKALIBS_DIR) $(SKALIBS_TAR) $(S6_DIR) $(S6_TAR) $(EXECLINE_DIR) $(EXECLINE_TAR)
+	mkdir $(SKALIBS_DIR) $(S6_DIR) $(EXECLINE_DIR)
 	curl -sLo $(SKALIBS_TAR) $(SKALIBS_URL)
 	tar -x -C $(SKALIBS_DIR) -f $(SKALIBS_TAR)
 	curl -sLo $(S6_TAR) $(S6_URL)
 	tar -x -C $(S6_DIR) -f $(S6_TAR)
+	curl -sLo $(EXECLINE_TAR) $(EXECLINE_URL)
+	tar -x -C $(EXECLINE_DIR) -f $(EXECLINE_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
