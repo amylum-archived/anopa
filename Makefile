@@ -30,6 +30,7 @@ build: submodule
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS)
+	$(BUILD_DIR)/tools/gen-deps.sh > $(BUILD_DIR)/package/deps.mak 2>/dev/null
 	make -C $(BUILD_DIR)
 	make -C $(BUILD_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
