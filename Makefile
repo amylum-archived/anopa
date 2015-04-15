@@ -57,6 +57,7 @@ deps:
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
+	find $(BUILD_DIR)/src/scripts -type f | xargs sed -i 's|#!.*execlineb|#!/usr/bin/execlineb|'
 	cd $(BUILD_DIR) && CC="musl-gcc" ./configure $(CONF_FLAGS) $(PATH_FLAGS) $(SKALIBS_PATH) $(S6_PATH) $(EXECLINE_PATH)
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
 	sed -i 's|/usr/share/man/man1|$$(prefix)/&|' $(BUILD_DIR)/Makefile
