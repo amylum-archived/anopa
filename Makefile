@@ -7,7 +7,7 @@ RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
-CONF_FLAGS = --enable-static --disable-slashpackage
+CONF_FLAGS = --enable-static --disable-slashpackage --enable-static-libc
 PATH_FLAGS = --prefix=$(RELEASE_DIR) --exec-prefix=$(RELEASE_DIR)/usr --libdir=$(RELEASE_DIR)/usr/lib/anopa --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --libexecdir=$(RELEASE_DIR)/usr/bin --sbindir=$(RELEASE_DIR)/usr/bin --with-include=/tmp/include
 
 SKALIBS_VERSION = 2.3.3.0-24
