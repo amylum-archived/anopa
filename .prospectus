@@ -1,0 +1,11 @@
+item do
+  expected do
+    github_tag
+    repo 'jjk-jacky/anopa'
+  end
+
+  actual do
+    git_tag
+    regex /^(.*)-\d+$/
+  end
+end
