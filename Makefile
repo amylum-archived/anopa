@@ -16,7 +16,7 @@ SKALIBS_TAR = skalibs.tar.gz
 SKALIBS_DIR = /tmp/skalibs
 SKALIBS_PATH = --with-sysdeps=$(SKALIBS_DIR)/usr/lib/skalibs/sysdeps --with-lib=$(SKALIBS_DIR)/usr/lib/skalibs --with-include=$(SKALIBS_DIR)/usr/include --with-dynlib=$(SKALIBS_DIR)/usr/lib
 
-S6_VERSION = 2.2.4.2-39
+S6_VERSION = 2.2.4.3-40
 S6_URL = https://github.com/amylum/s6/releases/download/$(S6_VERSION)/s6.tar.gz
 S6_TAR = s6.tar.gz
 S6_DIR = /tmp/s6
