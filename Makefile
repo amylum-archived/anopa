@@ -22,7 +22,7 @@ S6_TAR = s6.tar.gz
 S6_DIR = /tmp/s6
 S6_PATH = --with-lib=$(S6_DIR)/usr/lib/s6 --with-include=$(S6_DIR)/usr/include --with-lib=$(S6_DIR)/usr/lib
 
-EXECLINE_VERSION = 2.1.4.5-26
+EXECLINE_VERSION = 2.1.4.5-27
 EXECLINE_URL = https://github.com/amylum/execline/releases/download/$(EXECLINE_VERSION)/execline.tar.gz
 EXECLINE_TAR = execline.tar.gz
 EXECLINE_DIR = /tmp/execline
