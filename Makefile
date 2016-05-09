@@ -7,22 +7,22 @@ RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PACKAGE_VERSION = $$(awk -F= '/^version/ {print $$2}' upstream/package/info)
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
-CONF_FLAGS = --enable-static --disable-slashpackage --enable-static-libc
-PATH_FLAGS = --prefix=$(RELEASE_DIR) --exec-prefix=$(RELEASE_DIR)/usr --libdir=$(RELEASE_DIR)/usr/lib/anopa --dynlibdir=$(RELEASE_DIR)/usr/lib --includedir=$(RELEASE_DIR)/usr/include --libexecdir=$(RELEASE_DIR)/usr/bin --sbindir=$(RELEASE_DIR)/usr/bin --with-include=/tmp/include
+CONF_FLAGS =
+PATH_FLAGS = --prefix=/usr --libexecdir=/usr/bin --sbindir=/usr/bin --with-include=/tmp/include
 
-SKALIBS_VERSION = 2.3.10.0-38
+SKALIBS_VERSION = 2.3.10.0-40
 SKALIBS_URL = https://github.com/amylum/skalibs/releases/download/$(SKALIBS_VERSION)/skalibs.tar.gz
 SKALIBS_TAR = skalibs.tar.gz
 SKALIBS_DIR = /tmp/skalibs
 SKALIBS_PATH = --with-sysdeps=$(SKALIBS_DIR)/usr/lib/skalibs/sysdeps --with-lib=$(SKALIBS_DIR)/usr/lib/skalibs --with-include=$(SKALIBS_DIR)/usr/include --with-dynlib=$(SKALIBS_DIR)/usr/lib
 
-S6_VERSION = 2.3.0.0-41
+S6_VERSION = 2.3.0.0-42
 S6_URL = https://github.com/amylum/s6/releases/download/$(S6_VERSION)/s6.tar.gz
 S6_TAR = s6.tar.gz
 S6_DIR = /tmp/s6
 S6_PATH = --with-lib=$(S6_DIR)/usr/lib/s6 --with-include=$(S6_DIR)/usr/include --with-lib=$(S6_DIR)/usr/lib
 
-EXECLINE_VERSION = 2.1.5.0-28
+EXECLINE_VERSION = 2.1.5.0-29
 EXECLINE_URL = https://github.com/amylum/execline/releases/download/$(EXECLINE_VERSION)/execline.tar.gz
 EXECLINE_TAR = execline.tar.gz
 EXECLINE_DIR = /tmp/execline
@@ -62,7 +62,7 @@ build: submodule deps
 	cd $(BUILD_DIR) && ./tools/gen-deps.sh > package/deps.mak 2>/dev/null
 	sed -i 's|/usr/share/man/man1|$$(prefix)/&|' $(BUILD_DIR)/Makefile
 	make -C $(BUILD_DIR) POD2MAN=/usr/bin/core_perl/pod2man
-	make -C $(BUILD_DIR) install
+	make -C $(BUILD_DIR) DESTDIR=$(RELEASE_DIR) install
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
 	cp upstream/COPYING $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)/LICENSE
 	cd $(RELEASE_DIR) && tar -czvf $(RELEASE_FILE) *
