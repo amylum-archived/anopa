@@ -1,3 +1,6 @@
 [submodule "upstream"]
 	path = upstream
 	url = git://github.com/jjk-jacky/anopa
+[submodule "meta"]
+	path = meta
+	url = git://github.com/amylum/pkgforge-helper

@@ -1,6 +1,8 @@
 anopa
 =========
 
+[![Build Status](https://img.shields.io/circleci/project/amylum/anopa.svg)](https://circleci.com/gh/amylum/anopa)
+[![GitHub release](https://img.shields.io/github/release/amylum/anopa.svg)](https://github.com/amylum/anopa/releases)
 [![GPLv3 Licensed](https://img.shields.io/badge/license-GPLv3-green.svg)](https://www.tldrlegal.com/l/gpl-3.0)
 
 This is my package repo for [anopa](http://jjacky.com/anopa/), a framework for system process management built around [s6](http://skarnet.org/software/s6/).
