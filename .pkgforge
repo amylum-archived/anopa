@@ -1,7 +1,7 @@
 name 'anopa'
 org 'amylum'
 
-license 'COPYING'
+licenses 'COPYING'
 
 deps(
   skalibs: '2.3.10.0-40',
