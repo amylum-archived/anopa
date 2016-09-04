@@ -34,10 +34,10 @@ harden
 build do
   run './tools/gen-deps.sh > package/deps.mak'
   configure
-  make
+  make 'PATH' => '/usr/bin:/usr/bin/core_perl'
   install
 end
 
 test do
-  run 'anopa --version'
+  run 'aa-echo -V'
 end
