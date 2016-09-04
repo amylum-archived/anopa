@@ -6,7 +6,8 @@ licenses 'COPYING'
 deps(
   skalibs: '2.3.10.0-40',
   s6: '2.3.0.0-42',
-  execline: '2.1.5.0-29'
+  execline: '2.1.5.0-29',
+  'linux-api-headers': '4.8-rc4-1'
 )
 
 with_flags = %w(skalibs s6 execline).map do |dep_name|
