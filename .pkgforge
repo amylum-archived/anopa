@@ -24,6 +24,7 @@ configure_flags(
   prefix: '/usr',
   libexecdir: '/usr/bin',
   sbindir: '/usr/bin',
+  "with-include=#{dep(:'linux-api-headers')/usr/include": nil,
   "with-sysdeps=#{dep(:skalibs)}/usr/lib/skalibs/sysdeps": nil,
   **with_flags
 )
