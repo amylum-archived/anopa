@@ -7,7 +7,7 @@ deps(
   skalibs: '2.4.0.1-1',
   s6: '2.4.0.0-44',
   execline: '2.2.0.0-31',
-  'linux-api-headers': '4.9-rc4-1'
+  'linux-api-headers': '4.9-rc5-1'
 )
 
 with_flags = %w(skalibs s6 execline).map do |dep_name|
