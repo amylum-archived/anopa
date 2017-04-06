@@ -4,9 +4,9 @@ org 'amylum'
 licenses 'COPYING'
 
 deps(
-  skalibs: '2.4.0.2-1',
-  s6: '2.4.0.0-45',
-  execline: '2.2.0.0-32',
+  skalibs: '2.5.0.0-1',
+  s6: '2.5.0.0-1',
+  execline: '2.3.0.0-1',
   'linux-api-headers': '4.10-1'
 )
 
