@@ -32,6 +32,8 @@ configure_flags(
 harden
 cflags ["-Wno-error=implicit-function-declaration"]
 
+patch 'types-fix.patch'
+
 build do
   run './tools/gen-deps.sh > package/deps.mak'
   configure

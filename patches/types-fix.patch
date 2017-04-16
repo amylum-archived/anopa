@@ -1,0 +1,143 @@
+diff --git a/src/anopa/aa-enable.c b/src/anopa/aa-enable.c
+index 757cef9..29f067e 100644
+--- a/src/anopa/aa-enable.c
++++ b/src/anopa/aa-enable.c
+@@ -36,7 +36,7 @@
+ #include <skalibs/genalloc.h>
+ #include <skalibs/direntry.h>
+ #include <skalibs/error.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/skamisc.h>
+ #include <anopa/common.h>
+ #include <anopa/output.h>
+diff --git a/src/anopa/aa-start.c b/src/anopa/aa-start.c
+index b00fea8..b585863 100644
+--- a/src/anopa/aa-start.c
++++ b/src/anopa/aa-start.c
+@@ -42,7 +42,7 @@
+ #include <skalibs/iopause.h>
+ #include <skalibs/djbunix.h>
+ #include <skalibs/uint16.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <anopa/common.h>
+ #include <anopa/err.h>
+ #include <anopa/init_repo.h>
+diff --git a/src/anopa/aa-status.c b/src/anopa/aa-status.c
+index 23ae847..1ae89ca 100644
+--- a/src/anopa/aa-status.c
++++ b/src/anopa/aa-status.c
+@@ -37,7 +37,7 @@
+ #include <skalibs/genalloc.h>
+ #include <skalibs/stralloc.h>
+ #include <skalibs/skamisc.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/djbtime.h>
+ #include <skalibs/tai.h>
+ #include <skalibs/sig.h>
+diff --git a/src/anopa/aa-stop.c b/src/anopa/aa-stop.c
+index 160e4bb..04947c0 100644
+--- a/src/anopa/aa-stop.c
++++ b/src/anopa/aa-stop.c
+@@ -33,7 +33,7 @@
+ #include <skalibs/genalloc.h>
+ #include <skalibs/skamisc.h>
+ #include <skalibs/error.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/tai.h>
+ #include <skalibs/djbunix.h>
+ #include <s6/s6-supervise.h>
+diff --git a/src/anopa/start-stop.c b/src/anopa/start-stop.c
+index 8d7f776..5ab791e 100644
+--- a/src/anopa/start-stop.c
++++ b/src/anopa/start-stop.c
+@@ -34,7 +34,7 @@
+ #include <skalibs/iopause.h>
+ #include <skalibs/selfpipe.h>
+ #include <skalibs/sig.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/uint16.h>
+ #include <anopa/service.h>
+ #include <anopa/ga_int_list.h>
+diff --git a/src/libanopa/progress.c b/src/libanopa/progress.c
+index c73de42..e6679c2 100644
+--- a/src/libanopa/progress.c
++++ b/src/libanopa/progress.c
+@@ -21,7 +21,7 @@
+  */
+ 
+ #include <skalibs/bytestr.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <anopa/progress.h>
+ #include <anopa/output.h>
+ 
+diff --git a/src/libanopa/service.c b/src/libanopa/service.c
+index b6fd60c..982229e 100644
+--- a/src/libanopa/service.c
++++ b/src/libanopa/service.c
+@@ -27,7 +27,7 @@
+ #include <skalibs/genalloc.h>
+ #include <skalibs/bytestr.h>
+ #include <skalibs/direntry.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/tai.h>
+ #include <s6/s6-supervise.h>
+ #include <s6/ftrigr.h>
+diff --git a/src/libanopa/stats.c b/src/libanopa/stats.c
+index 42b2c99..eba4d0a 100644
+--- a/src/libanopa/stats.c
++++ b/src/libanopa/stats.c
+@@ -20,7 +20,7 @@
+  * anopa. If not, see http://www.gnu.org/licenses/
+  */
+ 
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/buffer.h>
+ #include <skalibs/genalloc.h>
+ #include <anopa/output.h>
+diff --git a/src/utils/aa-ctty.c b/src/utils/aa-ctty.c
+index d0d98d0..44ab07c 100644
+--- a/src/utils/aa-ctty.c
++++ b/src/utils/aa-ctty.c
+@@ -23,7 +23,7 @@
+ #include <getopt.h>
+ #include <termios.h>
+ #include <sys/ioctl.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <skalibs/djbunix.h>
+ #include <anopa/common.h>
+ #include <anopa/output.h>
+diff --git a/src/utils/aa-kill.c b/src/utils/aa-kill.c
+index 6052c12..1bd7ee8 100644
+--- a/src/utils/aa-kill.c
++++ b/src/utils/aa-kill.c
+@@ -28,7 +28,7 @@
+ #include <skalibs/sig.h>
+ #include <skalibs/stralloc.h>
+ #include <skalibs/djbunix.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <anopa/common.h>
+ #include <anopa/output.h>
+ #include <anopa/scan_dir.h>
+diff --git a/src/utils/aa-test.c b/src/utils/aa-test.c
+index c87770d..9b33f1d 100644
+--- a/src/utils/aa-test.c
++++ b/src/utils/aa-test.c
+@@ -24,7 +24,7 @@
+ #include <errno.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+-#include <skalibs/uint.h>
++#include <skalibs/types.h>
+ #include <anopa/common.h>
+ #include <anopa/output.h>
+ 
