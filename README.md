@@ -1,3 +1,5 @@
+**Inactive Project:** I am no longer updating this with new releases, as I ended up using raw [s6](https://github.com/amylum/s6) for my systems.
+
 anopa
 =========
 
